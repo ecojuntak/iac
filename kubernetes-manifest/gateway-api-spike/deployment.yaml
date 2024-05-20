@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podinfo-6-6-1
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: podinfo-6-6-1
+  template:
+    metadata:
+      labels:
+        app: podinfo-6-6-1
+    spec:
+      containers:
+        - name: app
+          image: stefanprodan/podinfo:6.6.1
+          ports:
+            - containerPort: 9898
+          envFrom:
+            - configMapRef:
+                name: podinfo
+            - secretRef:
+                name: podinfo
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podinfo-6-6-2
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: podinfo-6-6-2
+  template:
+    metadata:
+      labels:
+        app: podinfo-6-6-2
+    spec:
+      containers:
+        - name: app
+          image: stefanprodan/podinfo:6.6.2
+          ports:
+            - containerPort: 9898
+          envFrom:
+            - configMapRef:
+                name: podinfo
+            - secretRef:
+                name: podinfo
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
